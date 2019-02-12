@@ -81,6 +81,7 @@
 		A9639D39220E029800625235 /* Attribute+TravelerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9639D38220E029800625235 /* Attribute+TravelerUI.swift */; };
 		A9639D3B220E02DF00625235 /* TravelerUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9639D3A220E02DF00625235 /* TravelerUI.swift */; };
 		A9639D3D220E033C00625235 /* PaymentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9639D3C220E033C00625235 /* PaymentProvider.swift */; };
+		A9639DEB2213463900625235 /* UIDevice+Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = A9639DEA2213463900625235 /* UIDevice+Device.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -160,6 +161,7 @@
 		A9639D38220E029800625235 /* Attribute+TravelerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Attribute+TravelerUI.swift"; sourceTree = "<group>"; };
 		A9639D3A220E02DF00625235 /* TravelerUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelerUI.swift; sourceTree = "<group>"; };
 		A9639D3C220E033C00625235 /* PaymentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentProvider.swift; sourceTree = "<group>"; };
+		A9639DEA2213463900625235 /* UIDevice+Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+Device.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -332,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				A9639D36220E028300625235 /* NSMutableAttributedString+FontFace.swift */,
+				A9639DEA2213463900625235 /* UIDevice+Device.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -448,6 +451,7 @@
 				A9639D01220DF57400625235 /* CatalogItemResultViewController.swift in Sources */,
 				A9639D25220DF57400625235 /* InputType.swift in Sources */,
 				A9639D3B220E02DF00625235 /* TravelerUI.swift in Sources */,
+				A9639DEB2213463900625235 /* UIDevice+Device.swift in Sources */,
 				A9639CF2220DF57400625235 /* CatalogItemLoadingViewController.swift in Sources */,
 				A9639CEE220DF57400625235 /* PaymentConfirmationViewController.swift in Sources */,
 				A9639CF5220DF57400625235 /* AvailabilityFormViewController.swift in Sources */,
