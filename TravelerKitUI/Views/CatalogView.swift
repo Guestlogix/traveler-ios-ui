@@ -9,21 +9,27 @@
 import UIKit
 
 @objc
-public protocol CatalogViewDataSouce: class {
+public protocol CatalogViewDataSource: class {
     func numberOfGroups(in catalogView: CatalogView) -> Int
     func catalogView(_ catalogView: CatalogView, numberOfItemsIn group: Int) -> Int
     func catalogView(_ catalogView: CatalogView, configure itemCell: CarouselItemViewCell, at indexPath: IndexPath)
     func catalogView(_ catalogView: CatalogView, titleForHeaderIn group: Int) -> String?
     func catalogView(_ catalogView: CatalogView, titleForAccessoryButtonIn group: Int) -> String?
+    func catalogView(_ catalogView: CatalogView, identifierFor group: Int) -> String
 }
 
-extension CatalogViewDataSouce {
+extension CatalogViewDataSource {
     func catalogView(_ catalogView: CatalogView, titleForHeaderIn group: Int) -> String? {
         return nil
     }
 
     func catalogView(_ catalogView: CatalogView, titleForAccessoryButtonIn group: Int) -> String? {
         return nil
+    }
+    
+    
+    func catalogView(_ catalogView: CatalogView, identifierFor group: Int) -> String {
+        return groupCellIdentifier
     }
 }
 
@@ -67,10 +73,12 @@ extension CatalogViewDelegate {
 let groupCellIdentifier = "groupCellIdentifier"
 
 public class CatalogView: UIView {
-    @IBOutlet public weak var dataSource: CatalogViewDataSouce?
+    @IBOutlet public weak var dataSource: CatalogViewDataSource?
     @IBOutlet public weak var delegate: CatalogViewDelegate?
 
     @IBInspectable public var maxNumberOfCardsPerGroup = 5
+    
+    private weak var tableView: UITableView!
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -92,6 +100,8 @@ public class CatalogView: UIView {
         tableView.allowsSelection = false
 
         addSubview(tableView)
+        
+        self.tableView = tableView
 
         addConstraints([
             tableView.topAnchor.constraint(equalTo: topAnchor),
@@ -99,6 +109,10 @@ public class CatalogView: UIView {
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
             tableView.leftAnchor.constraint(equalTo: leftAnchor)
             ])
+    }
+    
+    func register(_ nib: UINib, forGroupWithIdentifier identifier: String) {
+        tableView.register(nib, forCellReuseIdentifier: identifier)
     }
 }
 
@@ -112,7 +126,8 @@ extension CatalogView: UITableViewDataSource {
     }
 
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: groupCellIdentifier, for: indexPath) as! CarouselViewCell
+        let identifier = dataSource!.catalogView(self, identifierFor: indexPath.row)
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! CarouselViewCell
 
         cell.dataSource = self
         cell.delegate = self
@@ -125,8 +140,8 @@ extension CatalogView: UITableViewDataSource {
             cell.moreButton.isHidden = true
         }
 
-        cell.reload()
         cell.tag = indexPath.row
+        cell.reload()
 
         return cell
     }
@@ -164,5 +179,9 @@ extension CatalogView: CarouselViewCellDataSource {
 
     public func carouselCell(_ cell: CarouselViewCell, configure itemCell: CarouselItemViewCell, at index: Int) {
         dataSource!.catalogView(self, configure: itemCell, at: IndexPath(item: index, section: cell.tag))
+    }
+    
+    public func identifierForItemsInCell(_ cell: CarouselViewCell) -> String {
+        return dataSource?.catalogView(self, identifierFor: cell.tag) ?? groupCellIdentifier
     }
 }
