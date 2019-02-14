@@ -57,11 +57,7 @@ open class CatalogResultViewController: CatalogViewController {
     open override func catalogView(_ catalogView: CatalogView, identifierFor group: Int) -> String {
         let group = catalog!.groups[group]
         
-        if group.isFeatured {
-            return featuredIdentifier
-        } else {
-            return standardIdentifier
-        }
+        return group.isFeatured ? featuredIdentifier : standardIdentifier;
     }
 
     // MARK: CatalogViewDelegate
@@ -69,11 +65,7 @@ open class CatalogResultViewController: CatalogViewController {
     open override func catalogView(_ catalogView: CatalogView, sizeForItemsIn group: Int) -> CGSize {
         let group = catalog!.groups[group]
 
-        if group.isFeatured {
-            return featuredItemSize
-        } else {
-            return standardItemSize
-        }
+        return group.isFeatured ? featuredItemSize : standardItemSize;
     }
 
     open override func catalogView(_ catalogView: CatalogView, spacingBetweenItemsIn group: Int) -> CGFloat {
