@@ -8,7 +8,9 @@
 
 import UIKit
 
-open class CatalogViewController: UIViewController, CatalogViewDataSouce, CatalogViewDelegate {
+let identifier: String = "CarouselItemViewCell"
+
+open class CatalogViewController: UIViewController, CatalogViewDataSource, CatalogViewDelegate {
     final weak var catalogView: CatalogView!
 
     open override func viewDidLoad() {
@@ -51,6 +53,10 @@ open class CatalogViewController: UIViewController, CatalogViewDataSouce, Catalo
 
     open func catalogView(_ catalogView: CatalogView, titleForAccessoryButtonIn group: Int) -> String? {
         return nil
+    }
+    
+    open func catalogView(_ catalogView: CatalogView, identifierFor group: Int) -> String  {
+        return identifier
     }
 
     // MARK: CatalogViewDelegate

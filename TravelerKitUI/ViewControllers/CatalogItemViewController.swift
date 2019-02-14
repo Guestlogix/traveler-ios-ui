@@ -57,7 +57,7 @@ open class CatalogItemViewController: UIViewController {
         Traveler.fetchCatalogItemDetails(catalogItem, delegate: self)
     }
 
-    @IBAction func didCose(_ sender: Any) {
+    @IBAction func didClose(_ sender: Any) {
         dismiss(animated: true)
     }
 }
