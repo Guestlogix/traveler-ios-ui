@@ -133,7 +133,7 @@ class BookableDetailsViewController: UITableViewController {
 
             updatePreferredContentSize()
         case timeCellIndexPath:
-            let cell = tableView.cellForRow(at: indexPath) as? StringCell
+            let cell = tableView.cellForRow(at: indexPath) as? ListCell
             cell?.textField.becomeFirstResponder()
 
             tableView.deselectRow(at: indexPath, animated: true)
@@ -211,6 +211,13 @@ extension BookableDetailsViewController: AvailabilityCheckDelegate {
 
 extension BookableDetailsViewController: ErrorContextObserving {
     func errorContextDidUpdate(_ context: ErrorContext) {
-        tableView.reloadData()
+        /// https://stackoverflow.com/questions/6409370/uitableview-reloaddata-automatically-calls-resignfirstresponder
+
+        if let _ = context.error {
+            tableView.reloadData()
+        } else {
+            tableView.beginUpdates()
+            tableView.endUpdates()
+        }
     }
 }

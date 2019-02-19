@@ -66,6 +66,17 @@ class CatalogItemResultViewController: UIViewController {
         errorContext.addObserver(self)
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        if preferredTranslucency {
+            preferredTranslucency = false
+            delegate?.catalogItemResultViewControllerDidChangePreferredTranslucency(self)
+        }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        updatePreferredTranslucency()
+    }
+
     deinit {
         errorContext.removeObserver(self)
     }
@@ -130,6 +141,10 @@ extension CatalogItemResultViewController: CatalogItemInfoViewControllerDelegate
 
 extension CatalogItemResultViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        updatePreferredTranslucency()
+    }
+
+    func updatePreferredTranslucency() {
         let cutOffPoint = headerView.frame.height - 75
 
         if scrollView.contentOffset.y > cutOffPoint && preferredTranslucency {

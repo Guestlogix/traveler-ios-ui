@@ -33,6 +33,15 @@ class ListCell: UITableViewCell {
 
         textField.inputView = pickerView
     }
+
+    @IBAction func didBeginEditing(_ sender: UITextField) {
+        guard let dataSource = dataSource, (sender.text == nil || sender.text == "") && dataSource.numberOfRowsInListCell(self) > 0 else {
+            return
+        }
+
+        textField.text = dataSource.listCell(self, titleForRow: 0)
+        delegate?.listCell(self, didSelectRow: 0)
+    }
 }
 
 extension ListCell: UIPickerViewDataSource {
@@ -53,5 +62,11 @@ extension ListCell: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         textField.text = dataSource?.listCell(self, titleForRow: row)
         delegate?.listCell(self, didSelectRow: row)
+    }
+}
+
+extension ListCell: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return false
     }
 }
