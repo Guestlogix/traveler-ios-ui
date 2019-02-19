@@ -36,6 +36,15 @@ class FormListInputCell: UICollectionViewCell {
 
         pickerView.reloadAllComponents()
     }
+
+    @IBAction func didBeginEditing(_ sender: UITextField) {
+        guard (sender.text == nil || sender.text == "") && items.count > 0 else {
+            return
+        }
+
+        sender.text = items[0]
+        delegate?.listInputCell(self, didSelect: 0)
+    }
 }
 
 extension FormListInputCell: UIPickerViewDataSource {
