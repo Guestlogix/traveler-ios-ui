@@ -190,6 +190,8 @@ extension BookableDetailsViewController: AvailabilityCheckDelegate {
     func availabilityCheckDidFailWith(_ error: Error) {
         tableView.isUserInteractionEnabled = true
 
+        errorContext?.error = BookingError.noDate
+
         let alert = UIAlertController(title: "Error", message: "Sorry, something went wrong!", preferredStyle: .alert)
         let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(action)
